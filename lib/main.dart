@@ -31,14 +31,37 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.blueAccent,
         title:const Center(child: Text('Profile',style: TextStyle(color: Colors.white),)),
       ),
-      body: const Center(
+      body:  Center(
         child: Column(
          mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
-            Icon(Icons.account_circle,size: 45,color: Colors.green,),
-            Text("Jhon Doe",style:TextStyle(color: Colors.green,fontSize: 22),),
-            Text("Flutter Batch 4",style:TextStyle(color: Colors.blueAccent,fontSize: 15),),
+            RichText(text:const TextSpan(text: 'Hello ',style: TextStyle(fontSize: 35,color: Colors.deepOrangeAccent),children: [
+
+              TextSpan(text: 'World',style: TextStyle(fontSize: 25,color: Colors.blueAccent)),
+            ]),),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(decoration: InputDecoration(
+                label: Text("Email"),
+                hintText: "Enter Email Address",
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+              ),),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(decoration: InputDecoration(
+                label: Text("Password"),
+                hintText: "Password",
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+              ),),
+            ),
+
+            ElevatedButton(onPressed: (){}, child: Text("Log in")),
+            TextButton(onPressed: (){}, child: Text("Forget password?")),
+            ElevatedButton(onPressed: (){}, child: Text("Create New Account")),
+
 
           ],
         ),
