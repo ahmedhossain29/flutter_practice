@@ -1,16 +1,9 @@
 # flutter_practice
 
-A new Flutter project.
+Module 6 Live Test 
+![livetest6](https://github.com/ahmedhossain29/flutter_practice/assets/34486902/1f30fe81-b217-4efb-8ce6-2dd2ef8ed08a)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Module 6 Assignment 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![assignment-6](https://github.com/ahmedhossain29/flutter_practice/assets/34486902/e4dc8876-a22a-45f4-9f8a-c7bbdc2b5a6c)
