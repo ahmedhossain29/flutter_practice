@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -24,44 +23,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var name="Hossain";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title:const Center(child: Text('Profile',style: TextStyle(color: Colors.white),)),
-      ),
+      appBar: AppBar(title: const Text("Home"),),
       body:  Center(
         child: Column(
-         mainAxisAlignment: MainAxisAlignment.center,
-
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            RichText(text:const TextSpan(text: 'Hello ',style: TextStyle(fontSize: 35,color: Colors.deepOrangeAccent),children: [
+            const Text("Home Page"),
+            ElevatedButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingScreen()));
+            }, child: const Text("Setting")),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-              TextSpan(text: 'World',style: TextStyle(fontSize: 25,color: Colors.blueAccent)),
-            ]),),
+class SettingScreen extends StatefulWidget {
+  const SettingScreen({super.key});
 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(decoration: InputDecoration(
-                label: Text("Email"),
-                hintText: "Enter Email Address",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(decoration: InputDecoration(
-                label: Text("Password"),
-                hintText: "Password",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),),
-            ),
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
 
-            ElevatedButton(onPressed: (){}, child: Text("Log in")),
-            TextButton(onPressed: (){}, child: Text("Forget password?")),
-            ElevatedButton(onPressed: (){}, child: Text("Create New Account")),
-
+class _SettingScreenState extends State<SettingScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Setting"),),
+      body:  Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Setting Page"),
+            ElevatedButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>productPage()));
+            }, child: Text("Test")),
 
           ],
         ),
@@ -69,3 +70,27 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+class productPage extends StatelessWidget {
+  const productPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+        appBar: AppBar(title: const Text("Test"),),
+    body:  Center(
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+    Text("Test Page"),
+      ElevatedButton(onPressed: (){
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>MyHomePage()),(route)=>false);
+      }, child: Text("Details")),
+    ],
+    ),
+    ),);
+  }
+}
+
+
+
