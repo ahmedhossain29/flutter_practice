@@ -1,96 +1,46 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp( const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-   const MyApp({super.key});
-
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
-    );
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isDarkMode = false;
+
+  void toggleTheme() {
+    setState(() {
+      isDarkMode = !isDarkMode;
+    });
   }
-}
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  var name="Hossain";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Home"),),
-      body:  Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Home Page"),
-            ElevatedButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingScreen()));
-            }, child: const Text("Setting")),
+    return MaterialApp(
+      theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Theme Switcher'),
+          actions: [
+            Switch(
+              value: isDarkMode,
+              onChanged: (value) {
+                toggleTheme();
+              },
+            ),
           ],
+        ),
+        body: Center(
+          child: Text(
+            'Theme Switcher App!',
+            style: TextStyle(fontSize: 20),
+          ),
         ),
       ),
     );
   }
 }
-
-class SettingScreen extends StatefulWidget {
-  const SettingScreen({super.key});
-
-  @override
-  State<SettingScreen> createState() => _SettingScreenState();
-}
-
-class _SettingScreenState extends State<SettingScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Setting"),),
-      body:  Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Setting Page"),
-            ElevatedButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>productPage()));
-            }, child: Text("Test")),
-
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class productPage extends StatelessWidget {
-  const productPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-        appBar: AppBar(title: const Text("Test"),),
-    body:  Center(
-    child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-    Text("Test Page"),
-      ElevatedButton(onPressed: (){
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>MyHomePage()),(route)=>false);
-      }, child: Text("Details")),
-    ],
-    ),
-    ),);
-  }
-}
-
-
-
