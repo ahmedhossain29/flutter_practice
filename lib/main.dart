@@ -21,66 +21,39 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _count =0;
-  void _incrementCount() {
-      setState(() {
-      _count++;
-      _checkAndShowDialog();
-    });
-  }
-  void _decrementCount() {
-    setState(() {
-      if (_count > 0) {
-        _count--;
-        _checkAndShowDialog();
-      }
-    });
-  }
-
-  void _checkAndShowDialog() {
-    if (_count >= 5) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Button pressed $_count times."),
-            actions: <Widget>[
-              TextButton(
-                child: Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Counter App"),),
+      appBar: AppBar(
+        title: Text("Flexible & Expanded Widget"),
+      ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-
         children: [
-          Text("Count",style: TextStyle(fontSize: 35),),
-          Text('$_count',style: TextStyle(fontSize: 100),),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(onPressed: _incrementCount, child: Icon(Icons.add)),
-            SizedBox(width: 10,),
-            ElevatedButton(onPressed: _decrementCount, child: Icon(Icons.remove)),
-          ],
-        )
+          Flexible(
+              flex: 2,
+              child: Container(
+            color: Colors.amber,
+
+          )),
+          Flexible(
+              flex: 1,
+              child: Container(
+            color: Colors.red,
+
+          )),
+          Flexible(
+              flex: 2,
+              child: Container(
+            color: Colors.blue,
+
+          )),
+          Expanded(
+              flex: 3,
+              child: Container(
+            color: Colors.deepOrangeAccent,
+          ))
         ],
       ),
     );
   }
 }
-
-
-
