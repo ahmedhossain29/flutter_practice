@@ -1,57 +1,50 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('News Feed'),
+        ),
+        body: ImageFeed(),
+      ),
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class ImageFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Flexible & Expanded Widget"),
+    final orientation = MediaQuery.of(context).orientation;
+
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: orientation == Orientation.portrait ? 1 : 2,
       ),
-      body: Column(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return ImageCard(imageUrl: 'https://via.placeholder.com/150');
+      },
+    );
+  }
+}
+
+class ImageCard extends StatelessWidget {
+  final String imageUrl;
+
+  ImageCard({required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(8.0),
+      child: Column(
         children: [
-          Flexible(
-              flex: 2,
-              child: Container(
-            color: Colors.amber,
-
-          )),
-          Flexible(
-              flex: 1,
-              child: Container(
-            color: Colors.red,
-
-          )),
-          Flexible(
-              flex: 2,
-              child: Container(
-            color: Colors.blue,
-
-          )),
-          Expanded(
-              flex: 3,
-              child: Container(
-            color: Colors.deepOrangeAccent,
-          ))
+          Image.network(imageUrl, width: 150, height: 150),
         ],
       ),
     );
