@@ -21,9 +21,30 @@ class ImageFeed extends StatelessWidget {
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
 
+    return orientation == Orientation.portrait
+        ? PortraitImageList()
+        : LandscapeImageGrid();
+  }
+}
+
+class PortraitImageList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return ImageCard(imageUrl: 'https://via.placeholder.com/150');
+      },
+    );
+  }
+}
+
+class LandscapeImageGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: orientation == Orientation.portrait ? 1 : 2,
+        crossAxisCount: 2,
       ),
       itemCount: 10,
       itemBuilder: (context, index) {
