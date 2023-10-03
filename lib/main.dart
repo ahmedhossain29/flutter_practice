@@ -1,73 +1,71 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('News Feed'),
-        ),
-        body: ImageFeed(),
-      ),
+    return const MaterialApp(
+      home: HomeScreen(),
     );
   }
 }
 
-class ImageFeed extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final orientation = MediaQuery.of(context).orientation;
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
-    return orientation == Orientation.portrait
-        ? PortraitImageList()
-        : LandscapeImageGrid();
-  }
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class PortraitImageList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+class _HomeScreenState extends State<HomeScreen> {
+
+  Widget _portaitMode(){
     return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return ImageCard(imageUrl: 'https://via.placeholder.com/150');
-      },
-    );
+        itemCount: 10,
+        itemBuilder: (context,index){
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: 150,
+          child: Image.network("https://via.placeholder.com/150"),
+        ),
+      );
+    });
   }
-}
 
-class LandscapeImageGrid extends StatelessWidget {
+  Widget _landscapeMode(){
+    return GridView.builder(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+    ),
+        itemCount: 10,
+        itemBuilder: (context,index){
+      return SizedBox(
+        child: Image.network("https://via.placeholder.com/150"),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return ImageCard(imageUrl: 'https://via.placeholder.com/150');
+    return Scaffold(
+      appBar: AppBar(title: const Text("Home"),),
+    body: OrientationBuilder(
+      builder: (context,orientation){
+        if(orientation==Orientation.portrait){
+          return _portaitMode();
+        }else{
+          return _landscapeMode();
+        }
       },
-    );
-  }
-}
-
-class ImageCard extends StatelessWidget {
-  final String imageUrl;
-
-  ImageCard({required this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Image.network(imageUrl, width: 150, height: 150),
-        ],
-      ),
+    ),
     );
   }
 }
