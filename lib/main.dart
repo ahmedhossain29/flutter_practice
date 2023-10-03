@@ -24,48 +24,118 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Widget _portaitMode(){
-    return ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context,index){
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          height: 150,
-          child: Image.network("https://via.placeholder.com/150"),
-        ),
-      );
-    });
-  }
+  final TextEditingController _numberOne =TextEditingController();
+  final TextEditingController _numberTwo =TextEditingController();
 
-  Widget _landscapeMode(){
-    return GridView.builder(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-    ),
-        itemCount: 10,
-        itemBuilder: (context,index){
-      return SizedBox(
-        child: Image.network("https://via.placeholder.com/150"),
-      );
-    });
-  }
+  double result=0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Home"),),
-    body: OrientationBuilder(
-      builder: (context,orientation){
-        if(orientation==Orientation.portrait){
-          return _portaitMode();
-        }else{
-          return _landscapeMode();
-        }
-      },
-    ),
+    body: Column(
+      children: [
+        TextFormField(
+          controller: _numberOne,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            hintText: 'Enter Number 1',
+          ),validator: (String? value){
+            if(value==null){
+              return 'Enter a number';
+            }
+            if(value.trim().isEmpty){
+              return 'Enter a Number';
+            }
+        },
+        ),
+        TextFormField(
+          controller: _numberTwo,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            hintText: 'Enter Number 1',
+          ),validator: (String? value){
+          if(value==null){
+            return 'Enter a number';
+          }
+          if(value.trim().isEmpty){
+            return 'Enter a Number';
+          }
+        },
+        ),
+        
+       SingleChildScrollView(
+         scrollDirection: Axis.horizontal,
+         child: Row(
+           
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             ElevatedButton.icon(onPressed: (){
+               double firstNumber=parseToDouble(_numberOne.text.trim());
+               double secondNumber=parseToDouble(_numberTwo.text.trim());
+               result =addition(firstNumber, secondNumber);
+               setState(() {
+               });
+             }, icon: Icon(Icons.add), label: Text("Sub")),
+             SizedBox(width: 5,),
+             ElevatedButton.icon(onPressed: (){
+               double firstNumber=parseToDouble(_numberOne.text.trim());
+               double secondNumber=parseToDouble(_numberTwo.text.trim());
+               result =sub(firstNumber, secondNumber);
+               setState(() {
+               });
+             }, icon: Icon(Icons.remove), label: Text("Sub")),
+             SizedBox(width: 5,),
+             ElevatedButton.icon(onPressed: (){
+               double firstNumber=parseToDouble(_numberOne.text.trim());
+               double secondNumber=parseToDouble(_numberTwo.text.trim());
+               result =mul(firstNumber, secondNumber);
+               setState(() {
+               });
+             }, icon: Icon(Icons.clear), label: Text("Mul")),
+             SizedBox(width: 5,),
+             ElevatedButton.icon(onPressed: (){
+               double firstNumber=parseToDouble(_numberOne.text.trim());
+               double secondNumber=parseToDouble(_numberTwo.text.trim());
+               result =div(firstNumber, secondNumber);
+               setState(() {
+               });
+             }, icon: Icon(Icons.safety_divider), label: Text("Div")),
+             SizedBox(width: 5,),
+             ElevatedButton.icon(onPressed: (){
+               double firstNumber=parseToDouble(_numberOne.text.trim());
+               double secondNumber=parseToDouble(_numberTwo.text.trim());
+               result =modulus(firstNumber, secondNumber);
+               setState(() {
+               });
+             }, icon: Icon(Icons.shape_line), label: Text("Div")),
+           ],
+         ),
+       ),
+
+        
+        Text('Result is :$result',style: TextStyle(fontSize: 25),)
+      ],
+    )
     );
   }
+}
+
+parseToDouble(String text){
+  return double.tryParse(text)??0;
+}
+addition(double firstNum,double secondNum){
+  return firstNum+secondNum;
+}
+sub(double firstNum,double secondNum){
+  return firstNum-secondNum;
+}
+mul(double firstNum,double secondNum){
+  return firstNum*secondNum;
+}
+div(double firstNum,double secondNum){
+  return firstNum/secondNum;
+}
+modulus(double firstNum,double secondNum){
+  return firstNum % secondNum;
 }
