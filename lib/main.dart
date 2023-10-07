@@ -19,8 +19,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int itemCount = 0;
-  double unitPrice = 10.0;
+
 
   @override
   Widget build(BuildContext context) {
